@@ -2,6 +2,19 @@
 const navbar = document.getElementById('navbar');
 const navToggle = document.getElementById('navToggle');
 const navMenu = document.getElementById('navMenu');
+const navOverlay = document.getElementById('navOverlay');
+
+function openMenu() {
+  navMenu.classList.add('open');
+  if (navOverlay) navOverlay.classList.add('show');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeMenu() {
+  navMenu.classList.remove('open');
+  if (navOverlay) navOverlay.classList.remove('show');
+  document.body.style.overflow = '';
+}
 
 window.addEventListener('scroll', () => {
   if (window.scrollY > 50) {
@@ -11,15 +24,14 @@ window.addEventListener('scroll', () => {
   }
 });
 
-navToggle.addEventListener('click', () => {
-  navMenu.classList.toggle('open');
-});
+navToggle.addEventListener('click', openMenu);
+
+// Klik area gelap sebelah kiri → tutup menu
+if (navOverlay) navOverlay.addEventListener('click', closeMenu);
 
 // Close menu when clicking a link
 navMenu.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', () => {
-    navMenu.classList.remove('open');
-  });
+  link.addEventListener('click', closeMenu);
 });
 
 // ===== SMOOTH SCROLL =====
