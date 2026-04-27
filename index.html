@@ -327,12 +327,25 @@
             <label for="bookService">Pilih Layanan *</label>
             <select id="bookService">
               <option value="">-- Pilih Layanan --</option>
-              <option value="potong-anak">Potong Rambut Anak (Rp 35.000)</option>
-              <option value="potong-dewasa">Potong Rambut Dewasa (Rp 55.000)</option>
-              <option value="cuci-potong-anak">Cuci + Potong Anak (Rp 50.000)</option>
-              <option value="cuci-potong-dewasa">Cuci + Potong Dewasa (Rp 75.000)</option>
-              <option value="styling">Styling (Rp 60.000)</option>
-              <option value="paket-keluarga">Paket Keluarga</option>
+              <optgroup label="🧒 Anak (Usia 0–12 tahun)">
+                <option value="anak-laki">Potong Rambut Anak Laki-laki (Rp 80.000)</option>
+                <option value="anak-skinhead">Skinhead Karakter (Rp 100.000)</option>
+                <option value="anak-perempuan">Potong Rambut Anak Perempuan (Rp 100.000)</option>
+                <option value="anak-creambath">Creambath/Masker + Blow Anak (Rp 120.000)</option>
+              </optgroup>
+              <optgroup label="👨 Dewasa (Usia 13+ tahun)">
+                <option value="dewasa-laki">Potong Rambut Dewasa Laki-laki (Rp 70.000)</option>
+                <option value="dewasa-perempuan">Potong Rambut Dewasa Perempuan (Rp 90.000)</option>
+                <option value="dewasa-creambath">Creambath/Masker + Blow Dewasa (Rp 150.000)</option>
+                <option value="dewasa-blow">Blow Dry (Rp 50.000)</option>
+              </optgroup>
+              <optgroup label="🎁 Paket Keluarga">
+                <option value="paket-2-dewasa-laki">2 Dewasa Laki-laki (Rp 130.000)</option>
+                <option value="paket-2-dewasa-perempuan">2 Dewasa Perempuan (Rp 160.000)</option>
+                <option value="paket-dewasa-anak">1 Dewasa + 1 Anak (Rp 140.000)</option>
+                <option value="paket-2-anak-laki">2 Anak Laki-laki (Rp 150.000)</option>
+                <option value="paket-2-anak-perempuan">2 Anak Perempuan (Rp 180.000)</option>
+              </optgroup>
             </select>
             <span class="form-error" id="errService"></span>
           </div>
