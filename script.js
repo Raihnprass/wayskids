@@ -35,16 +35,45 @@ navMenu.querySelectorAll('.nav-link').forEach(link => {
 });
 
 // ===== SMOOTH SCROLL =====
-document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+function scrollToElement(id) {
+  const target = document.querySelector(id);
+  if (target) {
+    const offset = 80;
+    const top = target.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+}
+
+// Handle clicks on links starting with # or index.html#
+document.querySelectorAll('a[href^="#"], a[href^="index.html#"]').forEach(anchor => {
   anchor.addEventListener('click', function (e) {
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      const offset = 80;
-      const top = target.getBoundingClientRect().top + window.scrollY - offset;
-      window.scrollTo({ top, behavior: 'smooth' });
+    const href = this.getAttribute('href');
+    const id = href.includes('#') ? '#' + href.split('#')[1] : null;
+
+    if (id) {
+      // If we're on the page mentioned in href (or current page is index and href is index.html#)
+      const isSamePage = href.startsWith('#') || 
+                        (window.location.pathname.endsWith('index.html') && href.startsWith('index.html#')) ||
+                        (window.location.pathname === '/' && href.startsWith('index.html#'));
+
+      if (isSamePage) {
+        const target = document.querySelector(id);
+        if (target) {
+          e.preventDefault();
+          scrollToElement(id);
+        }
+      }
     }
   });
+});
+
+// Handle hash on page load (e.g. coming from blog.html to index.html#booking)
+window.addEventListener('load', () => {
+  if (window.location.hash) {
+    setTimeout(() => {
+      scrollToElement(window.location.hash);
+    }, 200); // Small delay to ensure layout is ready
+  }
 });
 
 // ===== SCROLL-TO-TOP BUTTON =====
