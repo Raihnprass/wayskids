@@ -6,15 +6,17 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <meta name="description"
     content="Jasa home service potong rambut anak dan dewasa ke rumah di Jakarta, Bekasi, dan Depok. Barber panggilan profesional, rapi, dan nyaman tanpa perlu ke salon." />
+  <meta name="keywords"
+    content="panggilan cukur terdekat, cukur panggilan terdekat, tukang cukur panggilan terdekat, jasa panggilan cukur, potong rambut ke rumah, salon anak terdekat, potong rambut anak, barber panggilan jakarta, barber panggilan bekasi, barber panggilan depok, cukur rambut bayi, cukur rambut aqiqah, home service barbershop, tukang cukur panggilan, tukang cukur ke rumah terdekat" />
   <title>Ways Kids Hair | Potong Rambut Anak & Dewasa ke Rumah Jakarta, Bekasi, Depok</title>
   <meta name="google-site-verification" content="csGOsJ3Sxz2KOw3Mr9nXfAUBcev9c0742SnGHXD-jkQ" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link
-    href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Fredoka:wght@600;700;800;900&family=Nunito:wght@400;600;700;800;900&family=Poppins:wght@400;500;600;700&display=swap"
     rel="stylesheet" />
   <link rel="icon" type="image/jpeg" href="foto/logo-potong rambut.jpeg" />
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=3.4" />
   <link rel="canonical" href="https://wayskidshair.id/" />
 
   <!-- ===== SCHEMA.ORG JSON-LD (SEO POWER-UP) ===== -->
@@ -100,25 +102,51 @@
     <div class="hero-overlay"></div>
     <img src="https://images.unsplash.com/photo-1560066984-138dadb4c035?w=1600&q=80" alt="Salon background"
       class="hero-bg" />
-    <div class="container hero-content fade-in">
-      <span class="hero-badge">✨ Trusted Family Home Service</span>
-      <h1 class="hero-title">Home Service Potong Rambut Anak & Dewasa <br />
-        <span class="highlight">Panggilan ke Rumah Profesional</span>
-      </h1>
-      <p class="hero-sub">
-      <p class="hero-sub">
-        Ways Kids Hair adalah jasa home service potong rambut anak dan dewasa yang melayani area Jakarta, Bekasi, dan
-        Depok.
-        Barber panggilan ke rumah dengan hasil rapi, nyaman, dan profesional tanpa perlu ke salon.
-      </p>
-      </p>
+    <div class="container hero-wrapper">
+      <!-- Left Column: Content -->
+      <div class="hero-content fade-in">
+        <span class="hero-badge">✨ Trusted Family Home Service</span>
+        <h1 class="hero-title">Home Service Potong Rambut Anak & Dewasa <br />
+          <span class="highlight">Panggilan ke Rumah Profesional</span>
+        </h1>
+        <p class="hero-sub">
+          Ways Kids Hair adalah jasa home service potong rambut anak dan dewasa yang melayani area Jakarta, Bekasi, dan
+          Depok. Barber panggilan ke rumah dengan hasil rapi, nyaman, dan profesional tanpa perlu ke salon.
+        </p>
 
+        <div class="hero-btns">
+          <a href="#booking" class="btn btn-primary">📅 Booking Sekarang</a>
+          <a href="#services" class="btn btn-outline">Lihat Layanan</a>
+        </div>
+      </div>
 
-      <div class="hero-btns">
-        <a href="#booking" class="btn btn-primary">📅 Booking Sekarang</a>
-        <a href="#services" class="btn btn-outline">Lihat Layanan</a>
+      <!-- Right Column: Interactive Auto-Rotating 3D Barber Showcase -->
+      <div class="hero-3d-stage fade-in" id="hero3dContainer">
+        <!-- 3D Canvas Box -->
+        <div class="hero-3d-canvas-box" id="hero3dCanvasBox">
+          <canvas id="barber3dCanvas"></canvas>
+          <div class="hero-3d-glow"></div>
+        </div>
+
+        <!-- Floating Glass Badges -->
+        <div class="hero-floating-badge badge-top-left">
+          <span class="badge-icon">✂️</span>
+          <div class="badge-text">
+            <strong>Steril & Higienis</strong>
+            <small>Peralatan Disinfeksi</small>
+          </div>
+        </div>
+
+        <div class="hero-floating-badge badge-top-right">
+          <span class="badge-icon">🏠</span>
+          <div class="badge-text">
+            <strong>Home Service</strong>
+            <small>Jabodetabek Area</small>
+          </div>
+        </div>
       </div>
     </div>
+
     <div class="hero-wave">
       <svg viewBox="0 0 1440 80" preserveAspectRatio="none">
         <path d="M0,40 C360,80 1080,0 1440,40 L1440,80 L0,80 Z" fill="#fff" />
@@ -178,6 +206,46 @@
     </div>
   </section>
 
+  <!-- ===== HOW IT WORKS SECTION ===== -->
+  <section class="how-it-works section" id="how-it-works">
+    <div class="container">
+      <div class="section-header fade-in">
+        <span class="section-tag">Cara Pemesanan</span>
+        <h2 class="section-title">3 Langkah Praktis Home Service</h2>
+        <p class="section-sub">Nikmati pengalaman potong rambut premium tanpa repot keluar rumah dan tanpa antre</p>
+      </div>
+      <div class="steps-grid">
+        <div class="step-card fade-in">
+          <div class="step-badge">Langkah 01</div>
+          <div class="step-icon">📱</div>
+          <h3>Pilih Jadwal & Layanan</h3>
+          <p>Tentukan hari & jam santai keluarga Anda. Pilih layanan potong anak, dewasa, atau paket hemat keluarga.</p>
+          <div class="step-footer">
+            <span>✨ Praktis via Web / WA</span>
+          </div>
+        </div>
+        <div class="step-card featured fade-in">
+          <div class="step-badge highlight-badge">Langkah 02</div>
+          <div class="step-icon">🚗</div>
+          <h3>Stylist Tiba di Rumah</h3>
+          <p>Barber profesional tiba tepat waktu membawa peralatan lengkap, steril, dan ramah untuk si kecil.</p>
+          <div class="step-footer">
+            <span>✂️ Steril & Bebas Drama</span>
+          </div>
+        </div>
+        <div class="step-card fade-in">
+          <div class="step-badge">Langkah 03</div>
+          <div class="step-icon">✨</div>
+          <h3>Rapi & Nyaman Maksimal</h3>
+          <p>Keluarga tampil rapi percaya diri tanpa repot macet. Pembayaran mudah via Cash atau Transfer / QRIS.</p>
+          <div class="step-footer">
+            <span>⭐ Garansi Puas & Nyaman</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <!-- ===== SERVICES SECTION ===== -->
   <section class="services section" id="services">
     <div class="container">
@@ -196,7 +264,7 @@
             <li>✓ Stylist ramah anak</li>
             <li>✓ Peralatan higienis</li>
           </ul>
-          <a href="#booking" class="btn btn-soft">Booking</a>
+          <a href="#booking" class="btn btn-primary">Booking</a>
         </div>
         <div class="service-card featured fade-in">
           <div class="service-badge">Populer</div>
@@ -219,7 +287,7 @@
             <li>✓ Masker rambut/Creambath</li>
             <li>✓ Blow dry & styling</li>
           </ul>
-          <a href="#booking" class="btn btn-soft">Booking</a>
+          <a href="#booking" class="btn btn-primary">Booking</a>
         </div>
       </div>
     </div>
@@ -283,6 +351,15 @@
 
   <!-- ===== GALLERY SECTION ===== -->
   <section class="gallery section" id="gallery">
+    <!-- Native Custom 3D Background Decorations (100% Native Three.js) -->
+    <div class="gallery-3d-bg gallery-3d-left" aria-hidden="true">
+      <canvas id="clipper3dCanvas"></canvas>
+    </div>
+
+    <div class="gallery-3d-bg gallery-3d-right" aria-hidden="true">
+      <canvas id="dryer3dCanvas"></canvas>
+    </div>
+
     <div class="container">
       <div class="section-header fade-in">
         <span class="section-tag">Jenis Layanan</span>
@@ -310,6 +387,35 @@
           <div class="gallery-overlay"><span>Blow Dry</span></div>
         </div>
       </div>
+
+      <!-- Interactive Before & After Transformation Slider -->
+      <!-- <div class="transformation-box fade-in" id="beforeAfterSection">
+        <div class="transformation-header">
+          <span class="section-tag">Transformasi Rambut</span>
+          <h3 class="transformation-title">Geser & Lihat Hasilnya (*Before & After*)</h3>
+          <p class="transformation-sub">Buktikan kerapian potongan rambut anak & keluarga oleh stylist WaysKidsHair</p>
+        </div>
+
+        <div class="before-after-container" id="beforeAfterSlider">
+          <div class="ba-image-wrapper ba-before">
+            <img src="foto/foto-anak potong rambut.jpg" alt="Rambut Anak Sebelum Dipotong" />
+            <span class="ba-badge ba-badge-before">Sebelum (Before) ✂️</span>
+          </div>
+          <div class="ba-image-wrapper ba-after" id="baAfterLayer">
+            <img src="foto/foto-anak potong rambut 2.jpg" alt="Rambut Anak Sesudah Dipotong Rapi" />
+            <span class="ba-badge ba-badge-after">✨ Sesudah (After)</span>
+          </div>
+          
+          <div class="ba-slider-handle" id="baHandle">
+            <div class="ba-handle-line"></div>
+            <div class="ba-handle-circle">
+              <span>◀ ▶</span>
+            </div>
+          </div>
+          <input type="range" min="0" max="100" value="50" class="ba-range-input" id="baRangeInput" aria-label="Geser Perbandingan Sebelum dan Sesudah">
+        </div>
+        <p class="ba-hint">💡 <em>Geser bulatan panah ke kiri dan kanan untuk melihat perbedaan sebelum dan sesudah cukur</em></p>
+      </div> -->
     </div>
   </section>
 
@@ -532,10 +638,9 @@
     <div class="container">
       <div class="footer-grid">
         <div class="footer-brand">
-          <a href="#home" class="nav-logo">
-            <img src="foto/logo-potong rambut.jpeg" alt="WaysKidsHair Logo"
-              class="logo-icon-img logo-icon-img--footer" />
-            <span class="logo-text" style="color:#fff">WaysKidsHair <span class="logo-accent">Salon</span></span>
+          <a href="#home" class="footer-logo">
+            <img src="foto/logo-potong rambut.jpeg" alt="WaysKidsHair Logo" class="footer-logo-img" />
+            <span class="footer-logo-text">WaysKidsHair <span class="footer-logo-accent">Salon</span></span>
           </a>
           <p>Kami menyediakan jasa home service potong rambut untuk anak-anak dan dewasa dengan layanan praktis, nyaman,
             dan profesional. Tanpa perlu keluar rumah, kami datang langsung ke lokasi Anda.</p>
@@ -579,14 +684,14 @@
     </div>
   </footer>
 
-  <!-- WhatsApp Floating Button -->
-  <a href="https://wa.me/6281296782304?text=Halo%20WaysKidsHair%20Salon!" target="_blank" class="wa-float"
-    aria-label="WhatsApp">
+  <!-- WhatsApp Floating Button (Trigger Modal) -->
+  <button type="button" class="wa-float" id="waFloatBtn" aria-label="Buka Chat WhatsApp">
     <svg viewBox="0 0 32 32" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
       <path
         d="M16 0C7.163 0 0 7.163 0 16c0 2.833.738 5.494 2.027 7.805L0 32l8.418-2.004A15.93 15.93 0 0 0 16 32c8.837 0 16-7.163 16-16S24.837 0 16 0zm0 29.333a13.27 13.27 0 0 1-6.77-1.847l-.486-.288-5 1.192 1.213-4.864-.317-.5A13.27 13.27 0 0 1 2.667 16C2.667 8.636 8.636 2.667 16 2.667S29.333 8.636 29.333 16 23.364 29.333 16 29.333zm7.27-9.878c-.398-.2-2.355-1.162-2.72-1.295-.366-.133-.632-.2-.898.2-.266.398-1.031 1.295-1.264 1.561-.233.266-.465.3-.863.1-.398-.2-1.68-.619-3.2-1.974-1.183-1.054-1.981-2.356-2.214-2.754-.233-.398-.025-.614.175-.813.18-.178.398-.465.598-.698.2-.233.266-.398.398-.664.133-.266.067-.498-.033-.698-.1-.2-.898-2.163-1.23-2.962-.324-.778-.654-.673-.898-.686-.233-.012-.498-.015-.764-.015-.266 0-.698.1-1.064.498-.366.398-1.397 1.365-1.397 3.328 0 1.963 1.43 3.861 1.63 4.127.2.266 2.815 4.298 6.822 6.027.953.412 1.697.657 2.277.841.957.305 1.828.262 2.516.159.767-.115 2.355-.963 2.688-1.893.333-.93.333-1.727.233-1.893-.1-.166-.366-.266-.764-.465z" />
     </svg>
-  </a>
+    <span class="wa-badge-pulse"></span>
+  </button>
 
   <!-- TikTok Floating Button -->
   <a href="https://www.tiktok.com/@ways.kidshair" target="_blank" class="tiktok-float" aria-label="TikTok">
@@ -598,6 +703,68 @@
 
   <!-- Scroll to top -->
   <button class="scroll-top" id="scrollTop" aria-label="Scroll to top">↑</button>
+
+  <!-- ===== WHATSAPP SMART WIDGET MODAL ===== -->
+  <div class="wa-widget-modal" id="waWidgetModal" aria-hidden="true">
+    <div class="wa-modal-overlay" id="waModalOverlay"></div>
+    <div class="wa-modal-box">
+      <div class="wa-modal-header">
+        <div class="wa-agent-info">
+          <div class="wa-agent-avatar">
+            <img src="foto/logo-potong rambut.jpeg" alt="WaysKidsHair Stylist" />
+            <span class="wa-online-dot"></span>
+          </div>
+          <div>
+            <h4>WaysKidsHair Assistant</h4>
+            <span class="wa-status-text">🟢 Online • Respon Cepat</span>
+          </div>
+        </div>
+        <button type="button" class="wa-modal-close" id="waModalClose" aria-label="Tutup Menu WhatsApp">✕</button>
+      </div>
+
+      <div class="wa-modal-body">
+        <div class="wa-bubble-msg">
+          <p>Halo! 👋 Mau booking jadwal cukur atau konsultasi potongan rambut anak & keluarga ke rumah?</p>
+          <span class="wa-msg-time">Baru saja</span>
+        </div>
+
+        <p class="wa-prompt-title">Pilih menu cepat di bawah ini:</p>
+        <div class="wa-quick-options">
+          <a href="https://wa.me/6281296782304?text=Halo%20WaysKidsHair%2C%20mau%20tanya%20apakah%20masih%20ada%20slot%20jadwal%20cukur%20ke%20rumah%20hari%20ini%3F"
+            target="_blank" class="wa-quick-btn">
+            <span>📅 Tanya Slot Jadwal Hari Ini</span>
+            <span class="arrow-icon">→</span>
+          </a>
+          <a href="https://wa.me/6281296782304?text=Halo%20WaysKidsHair%2C%20saya%20mau%20konsultasi%20dan%20booking%20Paket%20Potong%20Rambut%20Keluarga."
+            target="_blank" class="wa-quick-btn">
+            <span>👨‍👩‍👧‍👦 Pesan Paket Cukur Keluarga</span>
+            <span class="arrow-icon">→</span>
+          </a>
+          <a href="https://wa.me/6281296782304?text=Halo%20WaysKidsHair%2C%20mau%20konsultasi%20model%20rambut%20anak%20%2F%20skinhead%20karakter."
+            target="_blank" class="wa-quick-btn">
+            <span>✂️ Konsultasi Model Rambut Anak</span>
+            <span class="arrow-icon">→</span>
+          </a>
+          <a href="https://wa.me/6281296782304?text=Halo%20WaysKidsHair%2C%20mau%20cek%20apakah%20lokasi%20rumah%20saya%20masuk%20area%20layanan%20home%20service%3F"
+            target="_blank" class="wa-quick-btn">
+            <span>📍 Cek Lokasi & Area Rumah Saya</span>
+            <span class="arrow-icon">→</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="wa-modal-footer">
+        <a href="https://wa.me/6281296782304?text=Halo%20WaysKidsHair%20Salon!%20Mau%20tanya%20layanan%20cukur%20ke%20rumah."
+          target="_blank" class="btn btn-wa w-full">
+          💬 Buka Chat WhatsApp Langsung
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Three.js & Controls for 3D Barber Interactive -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
 
   <script src="script.js"></script>
 </body>
