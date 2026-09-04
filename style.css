@@ -306,6 +306,362 @@ ul {
   box-shadow: 0 2px 6px rgba(255, 42, 85, 0.35);
   vertical-align: middle;
   transform: translateY(-1px);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.25s ease;
+}
+
+/* Salon shockwave shudder when lamp dropkicks 'i' */
+.logo-accent.salon-tremor {
+  animation: salonTremor 0.35s cubic-bezier(0.36, 0.07, 0.19, 0.97);
+}
+@keyframes salonTremor {
+  0%, 100% { transform: translateY(-1px) rotate(0deg); }
+  25% { transform: translateY(-5px) rotate(6deg) scale(1.08); }
+  50% { transform: translateY(2px) rotate(-4deg); }
+  75% { transform: translateY(-2px) rotate(2deg); }
+}
+
+/* Salon cute dodge & slide when space opens for lamp */
+.logo-accent.salon-dodge {
+  animation: salonDodgeSlide 0.45s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes salonDodgeSlide {
+  0% {
+    transform: translateY(-1px) translateX(0) scale(1);
+  }
+  38% {
+    transform: translateY(-8px) translateX(4px) rotate(8deg) scale(1.16);
+    box-shadow: 0 6px 14px rgba(255, 42, 85, 0.55);
+  }
+  72% {
+    transform: translateY(1px) translateX(1px) rotate(-2deg) scale(0.96);
+  }
+  100% {
+    transform: translateY(-1px) translateX(0) rotate(0deg) scale(1);
+    box-shadow: 0 2px 6px rgba(255, 42, 85, 0.35);
+  }
+}
+
+/* Salon celebratory glow when spotlight turns on */
+.logo-accent.salon-glow {
+  box-shadow: 0 0 10px rgba(255, 42, 85, 0.7), 0 0 20px rgba(255, 201, 40, 0.4);
+  transform: translateY(-2px) scale(1.04);
+}
+
+/* =========================================================================
+   ===== PIXAR LAMP (LUXO JR) NAVBAR ANIMATION =====
+   ========================================================================= */
+.pixar-brand-logo {
+  position: relative;
+  overflow: visible;
+}
+
+.pixar-brand-wrap {
+  position: relative;
+  display: inline-flex;
+  align-items: baseline;
+  overflow: visible;
+  user-select: none;
+  padding-right: 2px; /* Starts compact: NO awkward empty space while lamp is in the middle! */
+  transition: padding-right 0.38s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Dynamically unfolds & pushes Salon to the right ONLY when the lamp jumps to the showcase spot */
+.pixar-brand-wrap.showcase-open {
+  padding-right: 38px;
+}
+
+.pixar-letters-track {
+  display: inline-flex;
+  align-items: baseline;
+  position: relative;
+  z-index: 2;
+  transition: transform 0.1s ease;
+}
+
+.pixar-char {
+  display: inline-block;
+  position: relative;
+  transition: transform 0.15s ease, filter 0.2s ease, text-shadow 0.3s ease;
+  transform-origin: bottom center;
+}
+
+.pixar-char.char-step-down {
+  transform: translateY(2.5px) scale(1.04, 0.95);
+}
+
+/* ===== TARGET LETTER 'i' (UPSIDE DOWN & FLIP) ===== */
+.pixar-target-i {
+  display: inline-block;
+  position: relative;
+  transform-origin: 50% 55%;
+  user-select: none;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.25s ease;
+}
+
+/* Initially Inverted (Upside Down '¡' - clumsy and tilted) */
+.pixar-target-i.inverted {
+  transform: rotate(180deg) translateY(-3px) scale(0.96);
+  filter: drop-shadow(0 -2px 5px rgba(255, 140, 100, 0.45));
+}
+
+/* Tap 1: Small nudge wobble */
+.pixar-target-i.wobble-light {
+  animation: pixarWobble1 0.35s ease-in-out;
+}
+@keyframes pixarWobble1 {
+  0% { transform: rotate(180deg) translateY(-3px); }
+  30% { transform: rotate(196deg) translateY(-4px) scale(1.02); }
+  70% { transform: rotate(172deg) translateY(-2px); }
+  100% { transform: rotate(180deg) translateY(-3px); }
+}
+
+/* Tap 2: Harder pendulum wobble */
+.pixar-target-i.wobble-hard {
+  animation: pixarWobble2 0.5s ease-in-out;
+}
+@keyframes pixarWobble2 {
+  0% { transform: rotate(180deg) translateY(-3px); }
+  25% { transform: rotate(215deg) translateY(-5px) scale(1.06); }
+  55% { transform: rotate(155deg) translateY(-2px); }
+  80% { transform: rotate(188deg) translateY(-3px); }
+  100% { transform: rotate(180deg) translateY(-3px); }
+}
+
+/* The Grand Flip Fix Animation (360° backflip with squash & stretch) */
+.pixar-target-i.flipping {
+  animation: pixarFlipFix 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+@keyframes pixarFlipFix {
+  0% {
+    transform: rotate(180deg) translateY(-3px) scale(1);
+  }
+  30% {
+    transform: rotate(260deg) translateY(-18px) scale(1.3, 0.85);
+  }
+  60% {
+    transform: rotate(385deg) translateY(-4px) scale(0.9, 1.2);
+  }
+  82% {
+    transform: rotate(352deg) translateY(0px) scale(1.05, 0.95);
+  }
+  100% {
+    transform: rotate(360deg) translateY(0px) scale(1, 1);
+  }
+}
+
+.pixar-target-i.fixed {
+  transform: rotate(360deg) translateY(0px) scale(1, 1);
+  filter: none;
+}
+
+/* Golden starburst & scissor sparkle pop */
+.pixar-fix-burst {
+  position: absolute;
+  top: -12px;
+  left: 50%;
+  transform: translateX(-50%) scale(0);
+  pointer-events: none;
+  z-index: 10;
+  opacity: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+}
+.pixar-fix-burst.pop {
+  animation: burstPop 0.75s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+@keyframes burstPop {
+  0% { transform: translateX(-50%) scale(0.2); opacity: 1; filter: drop-shadow(0 0 4px #FFE066); }
+  50% { transform: translateX(-50%) scale(1.6) translateY(-10px); opacity: 1; filter: drop-shadow(0 0 12px #FFD54F); }
+  100% { transform: translateX(-50%) scale(2.2) translateY(-20px); opacity: 0; }
+}
+
+/* Cartoon Smoke / Dust Puff on Kick Slam */
+.pixar-dust-puff {
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  width: 44px;
+  height: 22px;
+  transform: translateX(-50%) scale(0);
+  pointer-events: none;
+  z-index: 8;
+  opacity: 0;
+}
+.pixar-dust-puff.poof {
+  animation: dustPoofAnimation 0.55s cubic-bezier(0.2, 0.9, 0.3, 1) forwards;
+}
+@keyframes dustPoofAnimation {
+  0% {
+    transform: translateX(-50%) scale(0.2);
+    opacity: 1;
+  }
+  50% {
+    transform: translateX(-50%) scale(1.3) translateY(-4px);
+    opacity: 0.9;
+  }
+  100% {
+    transform: translateX(-50%) scale(2) translateY(-10px);
+    opacity: 0;
+  }
+}
+
+/* Shadow under the lamp that squashes and stretches */
+.lamp-shadow {
+  position: absolute;
+  bottom: -2px;
+  left: 50%;
+  width: 24px;
+  height: 6px;
+  background: radial-gradient(ellipse at center, rgba(0,0,0,0.55) 0%, transparent 70%);
+  transform: translateX(-50%) scale(1, 1);
+  transition: transform 0.15s ease, opacity 0.15s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+/* ===== PIXAR LAMP ACTOR (LUXO JR) ===== */
+.pixar-lamp-actor {
+  position: absolute;
+  bottom: 2px;
+  left: 0;
+  width: 40px;
+  height: 50px;
+  z-index: 5;
+  pointer-events: none;
+  transform-origin: bottom center;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  filter: drop-shadow(0 5px 8px rgba(0, 0, 0, 0.4));
+}
+.pixar-lamp-actor.active {
+  opacity: 1;
+}
+
+.pixar-lamp-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+.lamp-base-group {
+  transform-origin: 25px 47px;
+}
+.lamp-body-group {
+  transform-origin: 25px 47px;
+  transition: transform 0.15s ease;
+}
+.lamp-head-group {
+  transform-origin: 25.5px 12px;
+  transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* Expressive Head Poses */
+.lamp-head-group.look-down {
+  transform: rotate(-24deg);
+}
+.lamp-head-group.look-curious {
+  transform: rotate(-36deg) scaleX(1.05);
+}
+.lamp-head-group.head-tilt-left {
+  transform: rotate(-30deg) rotateZ(22deg);
+}
+.lamp-head-group.head-tilt-right {
+  transform: rotate(-26deg) rotateZ(-18deg);
+}
+.lamp-head-group.nod-yes {
+  animation: pixarNod 0.45s ease-in-out 2;
+}
+@keyframes pixarNod {
+  0%, 100% { transform: rotate(-8deg); }
+  50% { transform: rotate(18deg); }
+}
+.lamp-head-group.shake-no {
+  animation: pixarShake 0.38s ease-in-out 2;
+}
+@keyframes pixarShake {
+  0%, 100% { transform: rotate(-26deg); }
+  35% { transform: rotate(-12deg) rotateZ(10deg); }
+  70% { transform: rotate(-38deg) rotateZ(-10deg); }
+}
+.lamp-head-group.look-at-brand {
+  transform: rotate(-16deg) scaleX(1.04);
+}
+.lamp-head-group.look-front {
+  transform: rotate(16deg) scaleX(1.06);
+}
+.lamp-head-group.look-around {
+  animation: pixarHeadLook 2.8s ease-in-out infinite alternate;
+}
+@keyframes pixarHeadLook {
+  0% { transform: rotate(10deg); }
+  40% { transform: rotate(24deg); }
+  75% { transform: rotate(14deg) rotateZ(5deg); }
+  100% { transform: rotate(4deg); }
+}
+
+/* Volumetric Spotlight Beam (Spreads across WaysKidsHair) */
+.lamp-beam-wrap {
+  opacity: 0;
+  transform-origin: 11.5px 19.5px;
+  transition: opacity 0.35s ease, transform 0.35s ease;
+  pointer-events: none;
+}
+.lamp-beam-wrap.shining {
+  opacity: 0.9;
+  animation: pixarBeamPulse 3.5s ease-in-out infinite alternate;
+}
+.beam-polygon {
+  filter: blur(2.5px);
+}
+@keyframes pixarBeamPulse {
+  0% { opacity: 0.78; transform: scale(0.98); }
+  100% { opacity: 0.98; transform: scale(1.02); }
+}
+
+.lamp-bulb-elem {
+  transition: filter 0.3s ease;
+  filter: drop-shadow(0 0 3px #FFE066);
+}
+.lamp-bulb-elem.bulb-on {
+  filter: drop-shadow(0 0 10px #FFFFFF) drop-shadow(0 0 20px #FFD54F) !important;
+}
+
+/* Stage Floor Ambient Glow under WaysKidsHair */
+.pixar-stage-light {
+  position: absolute;
+  top: -10px;
+  bottom: -8px;
+  left: -12px;
+  right: -2px;
+  border-radius: 20px;
+  background: radial-gradient(ellipse at 88% 50%, rgba(255, 225, 90, 0.4) 0%, rgba(255, 201, 40, 0.14) 52%, transparent 82%);
+  pointer-events: none;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.5s ease;
+}
+.pixar-brand-wrap.illuminated .pixar-stage-light {
+  opacity: 1;
+  animation: stagePulse 3.5s ease-in-out infinite alternate;
+}
+@keyframes stagePulse {
+  0% { opacity: 0.85; }
+  100% { opacity: 1; }
+}
+
+/* Ambient Warm Glow on WaysKidsHair when lamp is on */
+.pixar-brand-wrap.illuminated .pixar-char {
+  text-shadow:
+    0 1px 0 #E59800,
+    0 2px 0 #CC8400,
+    0 3px 0 #B37100,
+    0 0 16px rgba(255, 215, 0, 0.9),
+    0 0 32px rgba(255, 200, 40, 0.55) !important;
+}
+
+.nav-logo:hover .pixar-lamp-actor.active {
+  filter: drop-shadow(0 8px 16px rgba(255, 201, 40, 0.55));
 }
 
 /* =========================================================================
@@ -2244,9 +2600,23 @@ ul {
 }
 
 .blog-hero .hero-badge {
-  color: #ffffff !important;
-  background: rgba(255, 255, 255, 0.25);
-  border: 1px solid rgba(255, 255, 255, 0.4);
+  color: #FFE066 !important;
+  background: rgba(255, 201, 40, 0.2) !important;
+  border: 1px solid rgba(255, 201, 40, 0.5) !important;
+  box-shadow: 0 4px 14px rgba(255, 201, 40, 0.15) !important;
+  margin: 0 !important;
+  padding: 0 18px !important;
+  font-size: 0.84rem !important;
+  font-family: 'Nunito', sans-serif !important;
+  font-weight: 800 !important;
+  letter-spacing: 0.5px !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  gap: 6px !important;
+  height: 36px !important;
+  box-sizing: border-box !important;
+  border-radius: 50px !important;
 }
 
 .blog-hero-meta {
@@ -2254,7 +2624,7 @@ ul {
   gap: 10px;
   justify-content: center;
   align-items: center;
-  margin-bottom: 20px;
+  margin-bottom: 24px;
   flex-wrap: wrap;
 }
 
@@ -2263,12 +2633,20 @@ ul {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   color: #ffffff;
-  padding: 6px 16px;
+  padding: 0 16px;
   border-radius: 50px;
   font-size: 0.82rem;
+  font-family: 'Nunito', sans-serif;
   font-weight: 700;
   border: 1px solid rgba(255, 255, 255, 0.4);
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  height: 36px;
+  box-sizing: border-box;
+  margin: 0;
 }
 
 .blog-main-section {

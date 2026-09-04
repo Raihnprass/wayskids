@@ -1474,6 +1474,356 @@ function initWhatsAppModal() {
   });
 }
 
+// ===== PIXAR LAMP (LUXO JR) CINEMATIC NAVBAR ANIMATION =====
+function initPixarLampCinematicAnimation() {
+  const brandWraps = document.querySelectorAll('.pixar-brand-wrap');
+  if (!brandWraps.length) return;
+
+  brandWraps.forEach((brandWrap) => {
+    const navLogo = brandWrap.closest('.nav-logo');
+    const logoAccent = navLogo ? navLogo.querySelector('.logo-accent') : null;
+    const lettersTrack = brandWrap.querySelector('.pixar-letters-track');
+    const chars = lettersTrack ? Array.from(lettersTrack.querySelectorAll('.pixar-char')) : [];
+    const targetI = brandWrap.querySelector('.pixar-target-i');
+    const burst = brandWrap.querySelector('.pixar-fix-burst');
+    const dustPuff = brandWrap.querySelector('.pixar-dust-puff');
+    const actor = brandWrap.querySelector('.pixar-lamp-actor');
+    const shadow = brandWrap.querySelector('.lamp-shadow');
+    const head = brandWrap.querySelector('.lamp-head-group');
+    const beam = brandWrap.querySelector('.lamp-beam-wrap');
+    const bulb = brandWrap.querySelector('.lamp-bulb-elem');
+
+    if (!lettersTrack || !actor || !targetI || !head || !beam || !bulb) return;
+
+    let isPlaying = false;
+    let isFixed = false;
+    let currentRestX = 0;
+
+    const wait = (ms) => new Promise((res) => setTimeout(res, ms));
+
+    function resetToInverted() {
+      targetI.classList.remove('wobble-light', 'wobble-hard', 'flipping', 'fixed');
+      targetI.classList.add('inverted');
+      targetI.style.transform = '';
+      brandWrap.classList.remove('showcase-open');
+      if (logoAccent) {
+        logoAccent.classList.remove('salon-tremor', 'salon-dodge', 'salon-glow');
+      }
+      if (burst) burst.classList.remove('pop');
+      if (dustPuff) dustPuff.classList.remove('poof');
+      head.classList.remove('look-down', 'look-curious', 'head-tilt-left', 'head-tilt-right', 'nod-yes', 'shake-no', 'look-at-brand', 'look-front', 'look-around');
+      head.style.transform = '';
+      beam.classList.remove('shining');
+      bulb.classList.remove('bulb-on');
+      brandWrap.classList.remove('illuminated');
+      chars.forEach((c) => c.classList.remove('char-step-down'));
+      isFixed = false;
+    }
+
+    function getPositions() {
+      const trackRect = lettersTrack.getBoundingClientRect();
+      const targetRect = targetI.getBoundingClientRect();
+      const actorWidth = actor.offsetWidth || 40;
+
+      // Position beside 'i' for comedy scene
+      const standBesideX = (targetRect.right - trackRect.left) + 2 - (actorWidth * 0.35);
+      // Position right on top of 'i' for dropkick slam
+      const targetCenterX = (targetRect.left - trackRect.left) + (targetRect.width / 2) - (actorWidth / 2);
+      const startX = trackRect.width + 30;
+      // Showcase resting position at the end of the brand text (completely unblocks "WaysKidsHair"!)
+      const showcaseRestX = trackRect.width - 2;
+
+      return { standBesideX, targetCenterX, startX, showcaseRestX };
+    }
+
+    function stepOnLetter(char) {
+      const found = chars.find((c) => c.textContent.trim() === char);
+      if (found) {
+        found.classList.add('char-step-down');
+        setTimeout(() => found.classList.remove('char-step-down'), 180);
+      }
+    }
+
+    // Physics-based jump with squash & stretch and dynamic shadow
+    function performHop(fromX, toX, peakY, duration) {
+      return new Promise((resolve) => {
+        const half = duration / 2;
+        // Launch: stretch and shadow fades/shrinks
+        actor.style.transition = `transform ${half}ms cubic-bezier(0.2, 0.8, 0.4, 1)`;
+        const midX = fromX + (toX - fromX) * 0.55;
+        actor.style.transform = `translate3d(${midX}px, ${peakY}px, 0) scale(0.85, 1.25) rotate(-6deg)`;
+        if (shadow) {
+          shadow.style.transform = `translateX(-50%) scale(0.5, 0.5)`;
+          shadow.style.opacity = '0.25';
+        }
+
+        setTimeout(() => {
+          // Landing: squash hard on contact, shadow expands
+          actor.style.transition = `transform ${half * 0.7}ms cubic-bezier(0.6, 0.05, 0.9, 0.4)`;
+          actor.style.transform = `translate3d(${toX}px, 2px, 0) scale(1.28, 0.7) rotate(0deg)`;
+          if (shadow) {
+            shadow.style.transform = `translateX(-50%) scale(1.35, 1.2)`;
+            shadow.style.opacity = '0.7';
+          }
+
+          setTimeout(() => {
+            // Recoil to natural stance
+            actor.style.transition = `transform ${half * 0.3}ms cubic-bezier(0.34, 1.56, 0.64, 1)`;
+            actor.style.transform = `translate3d(${toX}px, 0px, 0) scale(1, 1)`;
+            if (shadow) {
+              shadow.style.transform = `translateX(-50%) scale(1, 1)`;
+              shadow.style.opacity = '0.55';
+            }
+            setTimeout(resolve, half * 0.3);
+          }, half * 0.7);
+        }, half);
+      });
+    }
+
+    async function playPixarAnimation() {
+      if (isPlaying) return;
+      isPlaying = true;
+      resetToInverted();
+
+      const { standBesideX, targetCenterX, startX, showcaseRestX } = getPositions();
+      currentRestX = showcaseRestX;
+
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        targetI.classList.remove('inverted');
+        targetI.classList.add('fixed');
+        brandWrap.classList.add('showcase-open');
+        actor.style.transition = 'none';
+        actor.style.transform = `translate3d(${showcaseRestX}px, 0px, 0)`;
+        actor.classList.add('active');
+        beam.classList.add('shining');
+        bulb.classList.add('bulb-on');
+        brandWrap.classList.add('illuminated');
+        if (logoAccent) logoAccent.classList.add('salon-glow');
+        isFixed = true;
+        isPlaying = false;
+        return;
+      }
+
+      // Position lamp off-screen right
+      actor.style.transition = 'none';
+      actor.style.transform = `translate3d(${startX}px, 0px, 0) scale(1, 1)`;
+      actor.classList.add('active');
+      head.classList.add('look-down');
+
+      await wait(120);
+
+      // --- ACT 1: ENTRANCE HOPS (SNAPPY LUXO ENTERS) ---
+      const hop1X = startX - (startX - standBesideX) * 0.38;
+      await performHop(startX, hop1X, -24, 240);
+      stepOnLetter('a');
+      await wait(40);
+
+      const hop2X = startX - (startX - standBesideX) * 0.74;
+      await performHop(hop1X, hop2X, -26, 240);
+      stepOnLetter('d');
+      await wait(50);
+
+      await performHop(hop2X, standBesideX, -28, 260);
+      await wait(140);
+
+      // --- ACT 2: COMIC DOUBLE-TAKE & INVESTIGATION ---
+      head.classList.add('look-curious');
+      await wait(180);
+
+      head.classList.remove('look-curious');
+      head.classList.add('head-tilt-left');
+      await wait(220);
+
+      head.classList.remove('head-tilt-left');
+      head.classList.add('head-tilt-right');
+      await wait(220);
+
+      // Quick perplexed hop in place
+      actor.style.transition = 'transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1)';
+      actor.style.transform = `translate3d(${standBesideX}px, -12px, 0) scale(0.92, 1.15)`;
+      await wait(120);
+      actor.style.transition = 'transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      actor.style.transform = `translate3d(${standBesideX}px, 0px, 0) scale(1, 1)`;
+      await wait(160);
+
+      // --- ACT 3: ATTEMPTS TO FIX (SNAPPY NUDGES) ---
+      // Attempt 1: Quick nudge
+      actor.style.transition = 'transform 0.14s ease';
+      actor.style.transform = `translate3d(${standBesideX - 7}px, 0px, 0) rotate(-9deg)`;
+      await wait(140);
+
+      targetI.classList.add('wobble-light');
+      await wait(250);
+      targetI.classList.remove('wobble-light');
+
+      actor.style.transition = 'transform 0.14s ease';
+      actor.style.transform = `translate3d(${standBesideX}px, 0px, 0) rotate(0deg)`;
+      await wait(140);
+
+      // Attempt 2: Harder bump!
+      actor.style.transition = 'transform 0.12s ease';
+      actor.style.transform = `translate3d(${standBesideX - 10}px, 1px, 0) rotate(-14deg)`;
+      await wait(120);
+
+      targetI.classList.add('wobble-hard');
+      await wait(360);
+      targetI.classList.remove('wobble-hard');
+
+      // Lamp pulls back and shakes head "NO"
+      actor.style.transition = 'transform 0.18s ease';
+      actor.style.transform = `translate3d(${standBesideX + 6}px, 0px, 0) rotate(0deg)`;
+      head.classList.remove('head-tilt-right');
+      head.classList.add('shake-no');
+      await wait(500);
+      head.classList.remove('shake-no');
+
+      // --- ACT 4: THE MASTER FIX (ACROBATIC DROPKICK SLAM!) ---
+      actor.style.transition = 'transform 0.15s ease';
+      actor.style.transform = `translate3d(${standBesideX + 10}px, 0px, 0)`;
+      await wait(150);
+
+      // Deep crouch windup
+      actor.style.transition = 'transform 0.18s cubic-bezier(0.4, 0, 0.2, 1)';
+      actor.style.transform = `translate3d(${standBesideX + 10}px, 4px, 0) scale(1.36, 0.64)`;
+      await wait(180);
+
+      // High launch!
+      actor.style.transition = 'transform 0.24s cubic-bezier(0.1, 0.9, 0.2, 1)';
+      actor.style.transform = `translate3d(${targetCenterX - 4}px, -40px, 0) scale(0.84, 1.3) rotate(-14deg)`;
+      if (shadow) {
+        shadow.style.transform = `translateX(-50%) scale(0.3, 0.3)`;
+        shadow.style.opacity = '0.2';
+      }
+      await wait(240);
+
+      // DROPKICK SLAM!
+      actor.style.transition = 'transform 0.1s cubic-bezier(0.7, 0, 0.84, 0)';
+      actor.style.transform = `translate3d(${targetCenterX - 8}px, 2px, 0) scale(1.28, 0.72) rotate(6deg)`;
+      if (shadow) {
+        shadow.style.transform = `translateX(-50%) scale(1.4, 1.2)`;
+        shadow.style.opacity = '0.75';
+      }
+
+      // Cartoon smoke dust puff!
+      if (dustPuff) dustPuff.classList.add('poof');
+
+      // TRIGGER THE 'i' FLIP!
+      targetI.classList.remove('inverted');
+      targetI.classList.add('flipping');
+
+      // Salon badge tremors from the shockwave impact!
+      if (logoAccent) {
+        logoAccent.classList.remove('salon-tremor');
+        void logoAccent.offsetWidth;
+        logoAccent.classList.add('salon-tremor');
+      }
+
+      await wait(100);
+
+      // Word micro-shockwave
+      lettersTrack.style.transform = 'translateY(2.5px)';
+      setTimeout(() => { lettersTrack.style.transform = 'translateY(0)'; }, 90);
+
+      // Lamp rebounds to standBesideX
+      actor.style.transition = 'transform 0.25s cubic-bezier(0.34, 1.56, 0.64, 1)';
+      actor.style.transform = `translate3d(${standBesideX}px, 0px, 0) scale(1, 1) rotate(0deg)`;
+      if (shadow) {
+        shadow.style.transform = `translateX(-50%) scale(1, 1)`;
+        shadow.style.opacity = '0.55';
+      }
+
+      // When 'i' finishes flip:
+      await wait(360);
+      targetI.classList.remove('flipping');
+      targetI.classList.add('fixed');
+      if (burst) burst.classList.add('pop'); // ✨ Pop golden star burst!
+      await wait(180);
+
+      // --- ACT 5: VICTORY CELEBRATION & SHOWCASE REVEAL ---
+      head.classList.add('nod-yes');
+      await wait(450);
+      head.classList.remove('nod-yes');
+
+      // --- ACT 6: HOP TO SHOWCASE POSITION (DYNAMICALLY OPEN SPACE & DODGE SALON!) ---
+      // Open the space smoothly while Salon does a cute cartoon dodge & slide!
+      brandWrap.classList.add('showcase-open');
+      if (logoAccent) {
+        logoAccent.classList.remove('salon-dodge');
+        void logoAccent.offsetWidth;
+        logoAccent.classList.add('salon-dodge');
+      }
+
+      await performHop(standBesideX, showcaseRestX, -28, 300);
+      await wait(120);
+
+      // Swivel head to face brand
+      head.classList.add('look-at-brand');
+      await wait(160);
+
+      // *FLASH!* VOLUMETRIC SPOTLIGHT BEAM!
+      beam.classList.add('shining');
+      bulb.classList.add('bulb-on');
+      brandWrap.classList.add('illuminated');
+      if (logoAccent) logoAccent.classList.add('salon-glow');
+
+      await wait(450);
+
+      // Swivel head to audience
+      head.classList.remove('look-at-brand');
+      head.classList.add('look-front');
+      await wait(350);
+
+      // Settle into living idle state
+      head.classList.remove('look-front');
+      head.classList.add('look-around');
+
+      isFixed = true;
+      isPlaying = false;
+    }
+
+    // Interactive high bounce on hover
+    if (navLogo) {
+      navLogo.addEventListener('mouseenter', () => {
+        if (isPlaying || !isFixed) return;
+        actor.style.transition = 'transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        actor.style.transform = `translate3d(${currentRestX}px, -14px, 0) scale(1.08, 1.08) rotate(6deg)`;
+
+        targetI.style.transition = 'transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)';
+        targetI.style.transform = 'rotate(360deg) translateY(-8px) scale(1.15)';
+
+        setTimeout(() => {
+          if (!isPlaying && isFixed) {
+            actor.style.transform = `translate3d(${currentRestX}px, 0px, 0) scale(1, 1) rotate(0deg)`;
+            targetI.style.transform = 'rotate(360deg) translateY(0px) scale(1)';
+          }
+        }, 200);
+      });
+
+      // Click logo to replay full Pixar sequence
+      navLogo.addEventListener('click', (e) => {
+        if (!isPlaying) {
+          playPixarAnimation();
+        }
+      });
+    }
+
+    // Keep resting position aligned on window resize
+    window.addEventListener('resize', () => {
+      if (isFixed && !isPlaying) {
+        const { showcaseRestX } = getPositions();
+        currentRestX = showcaseRestX;
+        actor.style.transition = 'transform 0.2s ease';
+        actor.style.transform = `translate3d(${showcaseRestX}px, 0px, 0) scale(1, 1)`;
+      }
+    });
+
+    // Start automatically shortly after page load
+    setTimeout(() => {
+      playPixarAnimation();
+    }, 600);
+  });
+}
+
 // Initialize all features on load
 document.addEventListener('DOMContentLoaded', () => {
   init3DBarberShowcase();
@@ -1484,6 +1834,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initPriceCalculator();
   initBeforeAfterSlider();
   initWhatsAppModal();
+  initPixarLampCinematicAnimation();
 });
 
 if (document.readyState !== 'loading') {
@@ -1495,5 +1846,7 @@ if (document.readyState !== 'loading') {
   initPriceCalculator();
   initBeforeAfterSlider();
   initWhatsAppModal();
+  initPixarLampCinematicAnimation();
 }
+
 

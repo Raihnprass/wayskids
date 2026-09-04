@@ -77,9 +77,97 @@
   <!-- ===== NAVBAR ===== -->
   <nav class="navbar" id="navbar">
     <div class="container nav-container">
-      <a href="#home" class="nav-logo">
+      <a href="#home" class="nav-logo" id="navLogo">
         <img src="foto/logo-potong rambut.jpeg" alt="WaysKidsHair Logo" class="logo-icon-img" />
-        <span class="logo-text">WaysKidsHair <span class="logo-accent">Salon</span></span>
+        <span class="logo-text pixar-brand-logo">
+          <span class="pixar-brand-wrap" id="pixarBrandWrap">
+            <!-- Stage spotlight background -->
+            <div class="pixar-stage-light" id="pixarStageLight"></div>
+
+            <span class="pixar-letters-track" id="pixarLettersTrack">
+              <span class="pixar-char">W</span><span class="pixar-char">a</span><span class="pixar-char">y</span><span class="pixar-char">s</span><span class="pixar-char">K</span><span class="pixar-char pixar-target-i inverted" id="pixarTargetI" data-char="i"><span class="i-letter-glyph">i</span><!-- Golden stars burst --><span class="pixar-fix-burst" id="pixarBurst"><span style="font-size: 16px;">✨</span></span><!-- Cartoon smoke / dust puff --><span class="pixar-dust-puff" id="pixarDustPuff"><svg viewBox="0 0 40 20" fill="none"><ellipse cx="12" cy="12" rx="7" ry="5" fill="rgba(255,255,255,0.75)" /><ellipse cx="28" cy="12" rx="7" ry="5" fill="rgba(255,255,255,0.75)" /><ellipse cx="20" cy="9" rx="9" ry="6" fill="rgba(255,255,255,0.9)" /></svg></span></span><span class="pixar-char">d</span><span class="pixar-char">s</span><span class="pixar-char">H</span><span class="pixar-char">a</span><span class="pixar-char">i</span><span class="pixar-char">r</span>
+            </span>
+
+            <!-- PIXAR LUXO JR LAMP ACTOR -->
+            <div class="pixar-lamp-actor" id="pixarLampActor" aria-hidden="true">
+              <!-- Animated Dynamic Contact Shadow -->
+              <div class="lamp-shadow" id="lampShadow"></div>
+
+              <svg class="pixar-lamp-svg" viewBox="0 0 50 60" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <defs>
+                  <!-- Volumetric Light Beam Gradient (Shooting left across text) -->
+                  <linearGradient id="pixarBeamGrad" x1="100%" y1="20%" x2="0%" y2="50%">
+                    <stop offset="0%" stop-color="#FFF9D2" stop-opacity="0.95" />
+                    <stop offset="25%" stop-color="#FFE066" stop-opacity="0.65" />
+                    <stop offset="60%" stop-color="#FFD54F" stop-opacity="0.25" />
+                    <stop offset="100%" stop-color="#FFC107" stop-opacity="0" />
+                  </linearGradient>
+                  <!-- Bulb Radial Glow -->
+                  <radialGradient id="bulbGlowGrad" cx="50%" cy="50%" r="50%">
+                    <stop offset="0%" stop-color="#FFFFFF" stop-opacity="1" />
+                    <stop offset="40%" stop-color="#FFF9C4" stop-opacity="0.85" />
+                    <stop offset="100%" stop-color="#FFE082" stop-opacity="0" />
+                  </radialGradient>
+                  <!-- Metallic Body Gradient -->
+                  <linearGradient id="metalGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#f8fafc" />
+                    <stop offset="50%" stop-color="#cbd5e1" />
+                    <stop offset="100%" stop-color="#64748b" />
+                  </linearGradient>
+                  <!-- Darker Arm Gradient -->
+                  <linearGradient id="metalDarkGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                    <stop offset="0%" stop-color="#94a3b8" />
+                    <stop offset="100%" stop-color="#475569" />
+                  </linearGradient>
+                </defs>
+
+                <!-- Volumetric Light Beam & Lamp Head -->
+                <g class="lamp-head-group" id="lampHeadGroup">
+                  <g class="lamp-beam-wrap" id="lampBeamWrap">
+                    <!-- Wide volumetric cone shooting left across the word -->
+                    <polygon points="12,20 -150,-10 -150,55" fill="url(#pixarBeamGrad)" class="beam-polygon" />
+                    <circle cx="12" cy="20" r="10" fill="url(#bulbGlowGrad)" />
+                  </g>
+                  <!-- Outer Shade Dome -->
+                  <path d="M26,11 C22,7 13,8 9,15 C7.5,17.5 8.5,21.5 13.5,23.5 C18,25 24,19 26,11 Z" fill="url(#metalGrad)" stroke="#475569" stroke-width="0.8" />
+                  <!-- Top Vent Cap -->
+                  <rect x="24" y="9" width="3" height="4" rx="1.5" transform="rotate(40 24 9)" fill="#475569" />
+                  <!-- Rim Opening -->
+                  <ellipse cx="11.5" cy="19.5" rx="3.5" ry="6.5" transform="rotate(-35 11.5 19.5)" fill="#e2e8f0" stroke="#64748b" stroke-width="0.8" />
+                  <!-- Inside Reflector -->
+                  <ellipse cx="11.5" cy="19.5" rx="2.5" ry="5" transform="rotate(-35 11.5 19.5)" fill="#1e293b" />
+                  <!-- Glowing Bulb -->
+                  <circle cx="11.5" cy="19.5" r="3.2" fill="#fff" class="lamp-bulb-elem" id="lampBulb" />
+                  <circle cx="11.5" cy="19.5" r="1.5" fill="#FFFFFF" />
+                </g>
+
+                <!-- Lamp Articulated Body (Lower & Upper Arms + Joints) -->
+                <g class="lamp-body-group" id="lampBodyGroup">
+                  <path d="M22,46 L27,46 L26,43 L23,43 Z" fill="#334155" />
+                  <line x1="23" y1="44" x2="16" y2="29" stroke="url(#metalGrad)" stroke-width="2.2" stroke-linecap="round" />
+                  <line x1="26" y1="44" x2="19" y2="29" stroke="url(#metalDarkGrad)" stroke-width="1.8" stroke-linecap="round" />
+                  <path d="M23,42 Q20,38 22,35 Q19,32 21,29" stroke="#475569" stroke-width="0.9" fill="none" />
+                  <circle cx="17.5" cy="29" r="3.5" fill="#334155" />
+                  <circle cx="17.5" cy="29" r="2.2" fill="#cbd5e1" />
+                  <circle cx="17.5" cy="29" r="1" fill="#1e293b" />
+                  <line x1="17.5" y1="29" x2="25" y2="12" stroke="url(#metalGrad)" stroke-width="2.2" stroke-linecap="round" />
+                  <line x1="19" y1="29" x2="26.5" y2="12" stroke="url(#metalDarkGrad)" stroke-width="1.8" stroke-linecap="round" />
+                  <path d="M18,27 Q22,23 20,20 Q24,17 22,14" stroke="#475569" stroke-width="0.8" fill="none" />
+                  <circle cx="25.5" cy="12" r="3.2" fill="#334155" />
+                  <circle cx="25.5" cy="12" r="1.8" fill="#cbd5e1" />
+                </g>
+
+                <!-- Base Plate -->
+                <g class="lamp-base-group" id="lampBaseGroup">
+                  <ellipse cx="25" cy="47" rx="10" ry="3.5" fill="#1e293b" />
+                  <ellipse cx="25" cy="45.5" rx="9.5" ry="3" fill="#64748b" />
+                  <ellipse cx="25" cy="44.5" rx="8" ry="2.2" fill="#cbd5e1" />
+                </g>
+              </svg>
+            </div>
+          </span>
+          <span class="logo-accent">Salon</span>
+        </span>
       </a>
       <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
         <span></span><span></span><span></span>
