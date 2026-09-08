@@ -5,15 +5,33 @@ const navMenu = document.getElementById('navMenu');
 const navOverlay = document.getElementById('navOverlay');
 
 function openMenu() {
-  navMenu.classList.add('open');
+  if (navMenu) navMenu.classList.add('open');
+  if (navToggle) {
+    navToggle.classList.add('open');
+    navToggle.setAttribute('aria-expanded', 'true');
+  }
+  if (navbar) navbar.classList.add('menu-open');
   if (navOverlay) navOverlay.classList.add('show');
   document.body.style.overflow = 'hidden';
 }
 
 function closeMenu() {
-  navMenu.classList.remove('open');
+  if (navMenu) navMenu.classList.remove('open');
+  if (navToggle) {
+    navToggle.classList.remove('open');
+    navToggle.setAttribute('aria-expanded', 'false');
+  }
+  if (navbar) navbar.classList.remove('menu-open');
   if (navOverlay) navOverlay.classList.remove('show');
   document.body.style.overflow = '';
+}
+
+function toggleMenu() {
+  if (navMenu && navMenu.classList.contains('open')) {
+    closeMenu();
+  } else {
+    openMenu();
+  }
 }
 
 window.addEventListener('scroll', () => {
@@ -24,15 +42,24 @@ window.addEventListener('scroll', () => {
   }
 });
 
-navToggle.addEventListener('click', openMenu);
+if (navToggle) navToggle.addEventListener('click', toggleMenu);
 
 // Klik area gelap sebelah kiri → tutup menu
 if (navOverlay) navOverlay.addEventListener('click', closeMenu);
 
-// Close menu when clicking a link
-navMenu.querySelectorAll('.nav-link').forEach(link => {
-  link.addEventListener('click', closeMenu);
+// Close menu on Escape key
+document.addEventListener('keydown', (e) => {
+  if (e.key === 'Escape' && navMenu && navMenu.classList.contains('open')) {
+    closeMenu();
+  }
 });
+
+// Close menu when clicking any menu link or CTA button
+if (navMenu) {
+  navMenu.querySelectorAll('.nav-link, .nav-cta').forEach(link => {
+    link.addEventListener('click', closeMenu);
+  });
+}
 
 // ===== SMOOTH SCROLL =====
 function scrollToElement(id) {
@@ -1588,6 +1615,14 @@ function initPixarLampCinematicAnimation() {
       const { standBesideX, targetCenterX, startX, showcaseRestX } = getPositions();
       currentRestX = showcaseRestX;
 
+      const isMobile = window.innerWidth <= 768;
+      const hopY1 = isMobile ? -8 : -14;
+      const hopY2 = isMobile ? -9 : -16;
+      const hopY3 = isMobile ? -10 : -18;
+      const hopPerplexed = isMobile ? -5 : -8;
+      const dropkickHop = isMobile ? -12 : -22;
+      const hopShowcase = isMobile ? -10 : -18;
+
       if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
         targetI.classList.remove('inverted');
         targetI.classList.add('fixed');
@@ -1614,16 +1649,16 @@ function initPixarLampCinematicAnimation() {
 
       // --- ACT 1: ENTRANCE HOPS (SNAPPY LUXO ENTERS) ---
       const hop1X = startX - (startX - standBesideX) * 0.38;
-      await performHop(startX, hop1X, -24, 240);
+      await performHop(startX, hop1X, hopY1, 240);
       stepOnLetter('a');
       await wait(40);
 
       const hop2X = startX - (startX - standBesideX) * 0.74;
-      await performHop(hop1X, hop2X, -26, 240);
+      await performHop(hop1X, hop2X, hopY2, 240);
       stepOnLetter('d');
       await wait(50);
 
-      await performHop(hop2X, standBesideX, -28, 260);
+      await performHop(hop2X, standBesideX, hopY3, 260);
       await wait(140);
 
       // --- ACT 2: COMIC DOUBLE-TAKE & INVESTIGATION ---
@@ -1640,7 +1675,7 @@ function initPixarLampCinematicAnimation() {
 
       // Quick perplexed hop in place
       actor.style.transition = 'transform 0.12s cubic-bezier(0.2, 0.8, 0.4, 1)';
-      actor.style.transform = `translate3d(${standBesideX}px, -12px, 0) scale(0.92, 1.15)`;
+      actor.style.transform = `translate3d(${standBesideX}px, ${hopPerplexed}px, 0) scale(0.92, 1.15)`;
       await wait(120);
       actor.style.transition = 'transform 0.12s cubic-bezier(0.34, 1.56, 0.64, 1)';
       actor.style.transform = `translate3d(${standBesideX}px, 0px, 0) scale(1, 1)`;
@@ -1689,7 +1724,7 @@ function initPixarLampCinematicAnimation() {
 
       // High launch!
       actor.style.transition = 'transform 0.24s cubic-bezier(0.1, 0.9, 0.2, 1)';
-      actor.style.transform = `translate3d(${targetCenterX - 4}px, -40px, 0) scale(0.84, 1.3) rotate(-14deg)`;
+      actor.style.transform = `translate3d(${targetCenterX - 4}px, ${dropkickHop}px, 0) scale(0.84, 1.3) rotate(-14deg)`;
       if (shadow) {
         shadow.style.transform = `translateX(-50%) scale(0.3, 0.3)`;
         shadow.style.opacity = '0.2';
@@ -1753,7 +1788,7 @@ function initPixarLampCinematicAnimation() {
         logoAccent.classList.add('salon-dodge');
       }
 
-      await performHop(standBesideX, showcaseRestX, -28, 300);
+      await performHop(standBesideX, showcaseRestX, hopShowcase, 300);
       await wait(120);
 
       // Swivel head to face brand
@@ -1785,8 +1820,9 @@ function initPixarLampCinematicAnimation() {
     if (navLogo) {
       navLogo.addEventListener('mouseenter', () => {
         if (isPlaying || !isFixed) return;
+        const hoverY = window.innerWidth <= 768 ? -5 : -9;
         actor.style.transition = 'transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)';
-        actor.style.transform = `translate3d(${currentRestX}px, -14px, 0) scale(1.08, 1.08) rotate(6deg)`;
+        actor.style.transform = `translate3d(${currentRestX}px, ${hoverY}px, 0) scale(1.08, 1.08) rotate(6deg)`;
 
         targetI.style.transition = 'transform 0.18s cubic-bezier(0.34, 1.56, 0.64, 1)';
         targetI.style.transform = 'rotate(360deg) translateY(-8px) scale(1.15)';
